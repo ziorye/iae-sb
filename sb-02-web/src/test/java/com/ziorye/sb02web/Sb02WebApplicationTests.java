@@ -1,5 +1,6 @@
 package com.ziorye.sb02web;
 
+import org.hamcrest.core.StringContains;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -22,10 +23,17 @@ class Sb02WebApplicationTests {
 				"New Module using Spring Initializr - 1.png",
 				"New Module using Spring Initializr - 2 - select dependencies.png")
 		) {
-			mvc.perform(get("/" + img))
+			mvc.perform(get("/img/new-module/" + img))
 					.andExpect(status().isOk())
 					.andExpect(content().contentType("image/png"));
 		}
+	}
+
+	@Test
+	void index(@Autowired MockMvc mvc) throws Exception {
+		mvc.perform(get("/index.html"))
+				.andExpect(status().isOk())
+				.andExpect(content().string(StringContains.containsString("New module using Spring Initializr")));
 	}
 
 }
