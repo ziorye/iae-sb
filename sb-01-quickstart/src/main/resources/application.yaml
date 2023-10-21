@@ -1,0 +1,40 @@
+# 将yaml前缀下的所有配置映射到自己写的YAML类及Specification类
+yaml:
+  description: YAML Ain't Markup Language™
+  whatItIs: YAML is a human-friendly data serialization language for all programming languages.
+  easyToUse: true
+  version: 1.2
+  releaseDate: 2009/07/21
+  authors: [Oren Ben-Kiki, Clark Evans, Ingy döt Net]
+  goals:
+    - YAML is easily readable by humans.
+    - YAML matches the native data structures of agile languages.
+    - YAML data is portable between programming languages.
+    - YAML has a consistent model to support generic tools.
+    - YAML supports one-pass processing.
+    - YAML is expressive and extensible.
+    - YAML is easy to implement and use.
+  frameworksAndTools:
+    Golang:
+      - Go-yaml
+      - Go-gypsy
+      - libcyaml
+      - goccy/go-yaml
+    Java:
+      - SnakeYAML Engine  # Java 8+ / YAML 1.2
+      - SnakeYAML         # Java 5 / YAML 1.1
+      - YamlBeans         # To/from JavaBeans. YAML 1.0/1.1
+      - eo-yaml           # YAML 1.2 for Java 8. Packaged as a Module (Java 9+)
+      - Chronicle-Wire    # Java Implementation
+    JavaScript: {yaml: 'JavaScript parser/stringifier (YAML 1.2, 1.1)', js-yaml: 'Native PyYAML port to JavaScript'}
+  revisions: [1.0, 1.1, 1.2, 1.2]
+  specification:
+    name: YAML 1.2
+    url: https://yaml.org/spec/1.2/
+  specifications:
+    current:
+      - name: YAML 1.2
+        url: https://yaml.org/spec/1.2/
+    others:
+      - {name: YAML 1.1, url: https://yaml.org/spec/1.1/}
+      - {name: YAML 1.0, url: https://yaml.org/spec/1.0/}
