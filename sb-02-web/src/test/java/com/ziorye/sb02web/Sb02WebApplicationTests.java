@@ -36,4 +36,11 @@ class Sb02WebApplicationTests {
 				.andExpect(content().string(StringContains.containsString("New module using Spring Initializr")));
 	}
 
+	@Test
+	void autoconfigure(@Autowired MockMvc mvc) throws Exception {
+		mvc.perform(get("/autoconfigure.html"))
+				.andExpect(status().isOk())
+				.andExpect(content().string(StringContains.containsString("Auto Configuration")));
+	}
+
 }
