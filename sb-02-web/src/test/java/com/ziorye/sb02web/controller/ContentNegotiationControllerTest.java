@@ -74,4 +74,16 @@ public class ContentNegotiationControllerTest {
                 .andExpect(MockMvcResultMatchers.content().contentTypeCompatibleWith(MediaType.APPLICATION_XML))
         ;
     }
+
+    @Test
+    @DisplayName("测试 Content Negotiation 添加自定义 HttpMessageConverter")
+    void testCustomMessageConverter() throws Exception {
+        mvc.perform(MockMvcRequestBuilders
+                        .get("/person")
+                        .header("Accept", "application/x-custom")
+                )
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().string("John;18;other attributes are omitted"))
+        ;
+    }
 }
