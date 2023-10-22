@@ -51,4 +51,10 @@ class Sb02WebApplicationTests {
 	void testStaticContent() throws Exception {
 		mvc.perform(get("/img/default-locations-of-static-resources.png")).andExpect(content().contentType("image/png"));
 	}
+
+	@Test
+	@DisplayName("测试 webjars 资源访问")
+	void testWebjarsContent() throws Exception {
+		mvc.perform(get("/webjars/bootstrap/5.2.3/css/bootstrap.min.css")).andExpect(status().isOk());
+	}
 }
