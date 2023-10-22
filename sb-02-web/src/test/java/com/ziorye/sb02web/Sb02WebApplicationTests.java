@@ -57,4 +57,10 @@ class Sb02WebApplicationTests {
 	void testWebjarsContent() throws Exception {
 		mvc.perform(get("/webjars/bootstrap/5.2.3/css/bootstrap.min.css")).andExpect(status().isOk());
 	}
+
+	@Test
+	@DisplayName("测试使用与版本无关的 URL 访问 webjars 资源")
+	void testVersionAgnosticURLsForWebjars() throws Exception {
+		mvc.perform(get("/webjars/bootstrap/css/bootstrap.min.css")).andExpect(status().isOk());
+	}
 }
