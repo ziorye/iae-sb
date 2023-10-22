@@ -9,6 +9,11 @@ spring:
     # Path pattern used for static resources.
     # "/custom-yourself/**"
     static-path-pattern: "/**"
+    contentnegotiation:
+      # Whether a request parameter ("format" by default) should be used to determine the requested media type.
+      favor-parameter: true
+      #parameter-name: format
+
 
   jackson:
     time-zone: Asia/Shanghai

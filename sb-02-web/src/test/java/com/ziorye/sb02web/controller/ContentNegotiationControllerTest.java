@@ -50,4 +50,28 @@ public class ContentNegotiationControllerTest {
                 .andExpect(MockMvcResultMatchers.xpath("/Person/age").string("18"))
         ;
     }
+
+    @Test
+    @DisplayName("测试 Content Negotiation 基于请求参数的内容协商策略。访问地址附带 format=json 请求参数")
+    void testParameterContentNegotiationStrategyWithFormatJson() throws Exception {
+        mvc.perform(MockMvcRequestBuilders
+                        .get("/person")
+                        .queryParam("format", "json")
+                )
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+        ;
+    }
+
+    @Test
+    @DisplayName("测试 Content Negotiation 基于请求参数的内容协商策略。访问地址附带 format=xml 请求参数")
+    void testParameterContentNegotiationStrategyWithFormatXml() throws Exception {
+        mvc.perform(MockMvcRequestBuilders
+                        .get("/person")
+                        .queryParam("format", "xml")
+                )
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().contentTypeCompatibleWith(MediaType.APPLICATION_XML))
+        ;
+    }
 }
