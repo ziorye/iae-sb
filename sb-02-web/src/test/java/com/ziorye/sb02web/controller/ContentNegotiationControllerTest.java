@@ -24,6 +24,7 @@ public class ContentNegotiationControllerTest {
     void testHeaderContentNegotiationStrategyJson() throws Exception {
         mvc.perform(MockMvcRequestBuilders
                         .get("/person")
+                        //.accept(MediaType.APPLICATION_JSON)
                 )
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.jsonPath("userName").value("John"))
@@ -35,5 +36,18 @@ public class ContentNegotiationControllerTest {
     @DisplayName("测试跟踪 Content Negotiation and @RequestBody")
     void testVersionAgnosticURLsForWebjars() throws Exception {
         mvc.perform(get("/atrequestbody.html")).andExpect(status().isOk());
+    }
+
+    @Test
+    @DisplayName("测试 Content Negotiation 基于请求头的内容协商策略。客服端指定 Accept=application/xml 服务器会自动将原本的 json 格式 Person 转化为 xml 格式的 Person")
+    void testHeaderContentNegotiationStrategyXml() throws Exception {
+        mvc.perform(MockMvcRequestBuilders
+                        .get("/person")
+                        .accept(MediaType.APPLICATION_XML)
+                )
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.xpath("/Person/userName").string("John"))
+                .andExpect(MockMvcResultMatchers.xpath("/Person/age").string("18"))
+        ;
     }
 }
