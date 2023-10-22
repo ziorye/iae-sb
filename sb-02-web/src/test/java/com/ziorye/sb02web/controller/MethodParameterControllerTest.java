@@ -135,4 +135,24 @@ public class MethodParameterControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("pet.weight").value("5.5"))
         ;
     }
+
+    @Test
+    @DisplayName("测试 StringToPetConverter 自定义 Converter。将 String 转 Pet")
+    void testCustomConverter() throws Exception {
+        mvc.perform(MockMvcRequestBuilders
+                        .post("/savePerson")
+                        .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                        .param("userName", "John")
+                        .param("age", "18")
+                        .param("birth", "1999/09/09")
+                        .param("pet", "tomcat,5.8")
+                )
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("userName").value("John"))
+                .andExpect(MockMvcResultMatchers.jsonPath("age").value(18))
+                .andExpect(MockMvcResultMatchers.jsonPath("birth").value("1999-09-09T00:00:00.000+08:00"))
+                .andExpect(MockMvcResultMatchers.jsonPath("pet.name").value("tomcat"))
+                .andExpect(MockMvcResultMatchers.jsonPath("pet.weight").value("5.8"))
+        ;
+    }
 }
