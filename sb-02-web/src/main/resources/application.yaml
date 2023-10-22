@@ -9,3 +9,6 @@ spring:
     # Path pattern used for static resources.
     # "/custom-yourself/**"
     static-path-pattern: "/**"
+
+  jackson:
+    time-zone: Asia/Shanghai
