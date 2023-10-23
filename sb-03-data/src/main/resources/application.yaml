@@ -2,5 +2,6 @@ spring:
   datasource:
     url: jdbc:mysql://localhost:3306/sb-03-data?allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=utf8&useSSL=false
     username: root
+    # 数据库密码尽量不要设置成纯数字。如：`0` 开头的纯数字会被 `yaml` 解析成八进制的数值
     password: secret_mysql
     driver-class-name: com.mysql.cj.jdbc.Driver
