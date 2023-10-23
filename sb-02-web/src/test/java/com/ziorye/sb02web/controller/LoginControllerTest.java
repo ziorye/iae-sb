@@ -57,4 +57,16 @@ class LoginControllerTest {
                 .andExpect(MockMvcResultMatchers.flash().attribute("msg", "邮箱或密码错误"))
         ;
     }
+
+    @Test
+    @DisplayName("测试未登录访问首页")
+    void testVisitHomePageWithoutLogin() throws Exception {
+        mvc.perform(MockMvcRequestBuilders
+                        .get("/home")
+                )
+                .andExpect(MockMvcResultMatchers.request().sessionAttribute("loginUser", Matchers.nullValue()))
+                .andExpect(MockMvcResultMatchers.view().name("login"))
+                .andExpect(MockMvcResultMatchers.model().attribute("msg", "未登录"))
+        ;
+    }
 }

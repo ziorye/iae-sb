@@ -3,6 +3,7 @@ package com.ziorye.sb02web.controller;
 import com.ziorye.sb02web.bean.User;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -27,7 +28,12 @@ public class LoginController {
     }
 
     @GetMapping("/home")
-    String home() {
-        return "home";
+    String home(HttpSession session, Model model) {
+        if (session.getAttribute("loginUser") != null) {
+            return "home";
+        } else {
+            model.addAttribute("msg", "未登录");
+            return "login";
+        }
     }
 }
