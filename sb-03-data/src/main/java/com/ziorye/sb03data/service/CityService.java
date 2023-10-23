@@ -13,4 +13,8 @@ public class CityService {
     public City findById(Long id) {
         return cityMapper.findById(id);
     }
+
+    public void insertCity(City city) {
+        cityMapper.insertCity(city);
+    }
 }

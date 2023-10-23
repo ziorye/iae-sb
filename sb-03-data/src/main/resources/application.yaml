@@ -5,3 +5,8 @@ spring:
     # 数据库密码尽量不要设置成纯数字。如：`0` 开头的纯数字会被 `yaml` 解析成八进制的数值
     password: secret_mysql
     driver-class-name: com.mysql.cj.jdbc.Driver
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
