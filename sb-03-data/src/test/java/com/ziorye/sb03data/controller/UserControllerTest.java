@@ -30,4 +30,18 @@ public class UserControllerTest {
                 .andExpect(MockMvcResultMatchers.view().name("users"))
         ;
     }
+
+    @Test
+    @DisplayName("测试用户列表页面")
+    void testUserIndex() throws Exception {
+        String currentPage = "2";
+        mvc.perform(MockMvcRequestBuilders
+                        .get("/users")
+                        .param("p", currentPage)
+                )
+                .andExpect(MockMvcResultMatchers.view().name("users"))
+                .andExpect(MockMvcResultMatchers.model().attributeExists("page"))
+                .andExpect(MockMvcResultMatchers.content().string(Matchers.containsString("当前第 " + currentPage + " 页")))
+        ;
+    }
 }
