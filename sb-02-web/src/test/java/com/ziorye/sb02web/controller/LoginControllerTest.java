@@ -39,6 +39,7 @@ class LoginControllerTest {
                 )
                 .andExpect(MockMvcResultMatchers.request().sessionAttribute("loginUser", Matchers.notNullValue()))
                 .andExpect(MockMvcResultMatchers.redirectedUrl("/home"))
+                .andExpect(MockMvcResultMatchers.flash().attribute("msg", "got it!"))
         ;
     }
 
@@ -53,6 +54,7 @@ class LoginControllerTest {
                 )
                 .andExpect(MockMvcResultMatchers.request().sessionAttribute("loginUser", Matchers.nullValue()))
                 .andExpect(MockMvcResultMatchers.redirectedUrl("/login"))
+                .andExpect(MockMvcResultMatchers.flash().attribute("msg", "邮箱或密码错误"))
         ;
     }
 }

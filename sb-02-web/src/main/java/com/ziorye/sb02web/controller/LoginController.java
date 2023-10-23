@@ -5,6 +5,7 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class LoginController {
@@ -14,12 +15,14 @@ public class LoginController {
     }
 
     @PostMapping("login")
-    String login(User user, HttpSession session) {
+    String login(User user, HttpSession session, RedirectAttributes redirectAttributes) {
         if (user != null && "secret".equals(user.getPassword())) {
             session.setAttribute("loginUser", user);
+            redirectAttributes.addFlashAttribute("msg", "got it!");
             return "redirect:/home";
         }
 
+        redirectAttributes.addFlashAttribute("msg", "邮箱或密码错误");
         return "redirect:/login";
     }
 
