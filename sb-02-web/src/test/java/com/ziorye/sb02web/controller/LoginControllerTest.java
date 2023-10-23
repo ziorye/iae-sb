@@ -21,7 +21,7 @@ class LoginControllerTest {
     @Test
     void show() throws Exception {
         mvc.perform(MockMvcRequestBuilders.get("/login"))
-                .andExpect(content().string(StringContains.containsString("https://cdn.")))
+                .andExpect(content().string(StringContains.containsString("/webjars/")))
         ;
     }
 }
