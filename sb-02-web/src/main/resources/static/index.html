@@ -10,5 +10,24 @@
 <img src="img/new-module/New%20module%20using%20Spring%20Initializr%20-%201.png" width="800" alt="New module using Spring Initializr - 1"/>
 <p>Step 2:</p>
 <img src="img/new-module/New%20module%20using%20Spring%20Initializr%20-%202%20-%20select%20dependencies.png" width="800" alt="New module using Spring Initializr - 2 - select dependencies"/>
+
+<hr>
+
+<h2>Spring Boot 核心原理总结</h2>
+<p>提供 spring-boot-starter-***/***-spring-boot-starter 场景依赖 ---> <span class="p-2 border">***AutoConfiguration 配置类 ---> 会自动导入该场景需要的 *** 组件 ---> 同时会通过 ***Properties</span> ---> 绑定 *** 配置文件项</p>
+
+<h2>Spring Boot 最理想的使用方式</h2>
+<ol>
+    <li>引入 spring-boot-starter-***/***-spring-boot-starter 场景依赖</li>
+    <li>修改 *** 配置文件项</li>
+</ol>
+
+<h2>如果最理想的使用方式不能满足要求，还可以...</h2>
+<ul>
+    <li>编写自定义的配置类 ***Configuration 标注 @Configuration + 配合 @Bean 注解替换或增加 spring-boot-starter-***/***-spring-boot-starter 默认向容器中导入的组件</li>
+    <li>如果开发的是 web 应用，可以自己写一个配置类实现 WebMvcConfigurer 接口，重写相应的方法即可定制化相应的功能；还可以使用 @Bean 给容器中再扩展一些组件</li>
+    <li>* 别忘了以前学过的知识点</li>
+</ul>
+
 </body>
 </html>
