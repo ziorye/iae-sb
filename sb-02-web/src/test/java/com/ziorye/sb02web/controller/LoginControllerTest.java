@@ -69,4 +69,26 @@ class LoginControllerTest {
                 .andExpect(MockMvcResultMatchers.model().attribute("msg", "未登录"))
         ;
     }
+
+    @Test
+    @DisplayName("测试国际化 - zh - 模拟浏览器切换语言为中文")
+    void i18nCN() throws Exception {
+        mvc.perform(MockMvcRequestBuilders
+                        .get("/login")
+                        .header("Accept-Language", "zh-CN,zh;q=0.9,en;q=0.8")
+                )
+                .andExpect(content().string(StringContains.containsString("邮箱")))
+        ;
+    }
+
+    @Test
+    @DisplayName("测试国际化 - en - 模拟浏览器切换语言为英文")
+    void i18nUS() throws Exception {
+        mvc.perform(MockMvcRequestBuilders
+                        .get("/login")
+                        .header("Accept-Language", "en,zh-CN;q=0.9,zh;q=0.8")
+                )
+                .andExpect(content().string(StringContains.containsString("Email address")))
+        ;
+    }
 }
