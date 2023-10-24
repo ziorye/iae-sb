@@ -4,6 +4,7 @@ import com.ioewvsau.common.R;
 import com.ioewvsau.pojo.Post;
 import com.ioewvsau.service.PostService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,8 +23,8 @@ public class PostController {
 
     @GetMapping
     @Operation(summary = "文章列表", description = "支持分页的文章列表接口，默认显示第一页(page=1), 每页显示10条(perPage=10)")
-    R index(@RequestParam(value = "page", defaultValue = "1") int page,
-            @RequestParam(value = "perPage", defaultValue = "10") int perPage)
+    R index(@Parameter(description = "当前页码") @RequestParam(value = "page", defaultValue = "1") int page,
+            @Parameter(description = "每页显示数量") @RequestParam(value = "perPage", defaultValue = "10") int perPage)
     {
         List<Post> data = postService.getByPage(perPage, (page - 1) * perPage);
         return R.ok(data);
