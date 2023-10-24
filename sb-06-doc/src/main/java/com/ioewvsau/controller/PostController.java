@@ -3,6 +3,7 @@ package com.ioewvsau.controller;
 import com.ioewvsau.common.R;
 import com.ioewvsau.pojo.Post;
 import com.ioewvsau.service.PostService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +14,7 @@ import java.util.List;
 //@ResponseBody
 @RestController
 @RequestMapping("/posts")
+@Tag(name = "post-controller", description = "文章管理")
 public class PostController {
     @Autowired
     PostService postService;
