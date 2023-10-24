@@ -12,6 +12,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import static org.hamcrest.Matchers.hasItem;
+import static org.hamcrest.Matchers.is;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -45,6 +46,18 @@ public class SwaggerUITest {
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("tags.*.name", hasItem("post-controller")))
                 .andExpect(MockMvcResultMatchers.jsonPath("tags.*.description", hasItem("文章管理")))
+        ;
+    }
+
+    @Test
+    @DisplayName("""
+            @Operation(summary = "文章列表", description = "支持分页的文章列表接口，默认显示第一页(page=1), 每页显示10条(perPage=10)")
+            """)
+    void swaggerUIWithOperationAnnotation() throws Exception {
+        mvc.perform(MockMvcRequestBuilders.get("/v3/api-docs"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("paths['/posts'].get.summary", is("文章列表")))
+                .andExpect(MockMvcResultMatchers.jsonPath("paths['/posts'].get.description", is("支持分页的文章列表接口，默认显示第一页(page=1), 每页显示10条(perPage=10)")))
         ;
     }
 }
