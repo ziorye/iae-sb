@@ -11,9 +11,9 @@ public interface PostService {
 
     Post getById(long id);
 
-    boolean save(Post post);
+    int save(Post post);
 
-    boolean update(Post post);
+    int update(Post post);
 
-    boolean deleteById(long id);
+    int deleteById(long id);
 }

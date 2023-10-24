@@ -58,7 +58,7 @@ class PostControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(post)))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(content().string(emptyString()))
+                .andExpect(content().string("1"))
         ;
     }
 
@@ -82,7 +82,7 @@ class PostControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(post)))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(content().string(emptyString()))
+                .andExpect(content().string(is("1")))
         ;
     }
 
@@ -90,7 +90,7 @@ class PostControllerTest {
     void delete() throws Exception {
         mvc.perform(MockMvcRequestBuilders.delete("/posts/5"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(content().string(emptyString()))
+                .andExpect(content().string("1"))
         ;
     }
 }

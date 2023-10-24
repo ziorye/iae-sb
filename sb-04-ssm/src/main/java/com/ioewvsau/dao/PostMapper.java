@@ -28,11 +28,11 @@ public interface PostMapper {
 
     List<Post> selectByOneCondition(Map<String, Object> map);
 
-    void add(Post post);
+    int add(Post post);
 
-    void update(Post post);
+    int update(Post post);
 
-    void deleteById(long id);
+    int deleteById(long id);
 
-    void deleteByIds(long[] ids);
+    int deleteByIds(long[] ids);
 }

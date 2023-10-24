@@ -23,8 +23,8 @@ public class PostController {
     }
 
     @PostMapping
-    void store(@RequestBody Post post) {
-        postService.save(post);
+    int store(@RequestBody Post post) {
+        return postService.save(post);
     }
 
     @GetMapping("/{id}")
@@ -33,14 +33,14 @@ public class PostController {
     }
 
     @PutMapping("/{id}")
-    void update(@PathVariable long id, @RequestBody Post post) {
+    int update(@PathVariable long id, @RequestBody Post post) {
         post.setId(id);
-        postService.update(post);
+        return postService.update(post);
     }
 
     @DeleteMapping("/{id}")
-    void delete(@PathVariable long id) {
-        postService.deleteById(id);
+    int delete(@PathVariable long id) {
+        return postService.deleteById(id);
     }
 
 }
