@@ -1,0 +1,42 @@
+### ============================
+### posts
+### ============================
+
+### posts.index
+GET http://localhost:8080/posts
+Accept: application/json
+
+### posts.index by page
+GET http://localhost:8080/posts?page=2&perPage=3
+Accept: application/json
+
+### posts.store
+POST http://localhost:8080/posts
+Content-Type: application/json
+
+{
+  "title": "post-title-11",
+  "slug": "post-title-11",
+  "cover": "/img/cover/default-cover.png",
+  "description": "post-title-11 description",
+  "content": "## post-title-11 content\nthe content paragraph 1...",
+  "status": "1",
+  "userId": "1"
+}
+
+### posts.show
+GET http://localhost:8080/posts/11
+Accept: application/json
+
+### posts.update
+PUT http://localhost:8080/posts/11
+Content-Type: application/json
+
+{
+  "title": "post-title-11__update",
+  "status": 0
+}
+
+### posts.delete
+DELETE http://localhost:8080/posts/11
+Content-Type: application/json

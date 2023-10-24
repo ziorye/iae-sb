@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ioewvsau.dao.PostMapper">
+	<sql id="select-column">
+		id, title, slug, cover, description, content, status, user_id, view_count, created_at as createdAt, updated_at
+	</sql>
+
+	<resultMap id="postResultMap" type="com.ioewvsau.pojo.Post">
+		<result column="user_id" property="userId"/>
+		<result column="view_count" property="viewCount"/>
+		<result column="created_at" property="createdAt"/>
+		<result column="updated_at" property="updatedAt"/>
+	</resultMap>
+
+	<select id="selectAll" resultMap="postResultMap">
+		select * from post;
+	</select>
+	<select id="selectByPage" resultMap="postResultMap">
+		select * from post limit #{rowCount} offset #{offset} ;
+	</select>
+	<!--<select id="selectById" parameterType="long" resultMap="postResultMap">-->
+	<!--<select id="selectById" resultMap="postResultMap">
+		select *
+		from post
+		where id = #{id};
+	</select>-->
+	<select id="sqlStatementWithSpecialTag" resultMap="postResultMap">
+		<!--select * from post where id < 10000;-->
+		/*select * from post where id &lt; 10000;*/
+		select *
+		from post
+		where id
+		<![CDATA[
+		    <
+		]]>
+		1000;
+	</select>
+	<select id="selectByCondition" resultMap="postResultMap">
+		select *
+		from post
+		where status = #{status}
+		and title like #{title}
+		and content like #{content}
+	</select>
+
+	<select id="selectByConditionWithDynamicSQL" resultMap="postResultMap">
+		select *
+		from post
+		<where>
+		    <if test="status != null">
+				and status = #{status}
+			</if>
+		    <if test="title != null and title != ''">
+				and title like #{title}
+			</if>
+		    <if test="content != null and content != ''">
+				and content like #{content}
+			</if>
+		</where>
+	</select>
+	<select id="selectByOneCondition" resultMap="postResultMap">
+		select *
+		from post
+		<where>
+			<choose>
+				<when test="status != null">
+					status = #{status}
+				</when>
+				<when test="title != null and title != ''">
+					title like #{title}
+				</when>
+				<when test="content != null and content != ''">
+					content like #{content}
+				</when>
+			</choose>
+		</where>
+	</select>
+
+	<insert id="add" useGeneratedKeys="true" keyProperty="id">
+		insert into post (title, slug, cover, description, content, status, user_id, view_count, created_at, updated_at)
+		values (#{title}, #{slug}, #{cover}, #{description}, #{content}, #{status}, #{userId}, #{viewCount}, #{createdAt}, #{updatedAt})
+	</insert>
+
+	<update id="update">
+		update post
+		<set>
+			<if test="title != null">
+				title = #{title},
+			</if>
+			<if test="slug != null">
+				slug = #{slug},
+			</if>
+			<if test="cover != null">
+				cover = #{cover},
+			</if>
+			<if test="description != null">
+				description = #{description},
+			</if>
+			<if test="content != null">
+				content = #{content},
+			</if>
+			<if test="status != null">
+				status = #{status},
+			</if>
+			<if test="userId != null">
+				user_id = #{userId},
+			</if>
+			<if test="viewCount != null">
+				view_count = #{viewCount},
+			</if>
+			<if test="createdAt != null">
+				created_at = #{createdAt},
+			</if>
+			<if test="updatedAt != null">
+				updated_at = #{updatedAt},
+			</if>
+		</set>
+		where id = #{id}
+	</update>
+
+	<delete id="deleteById">
+		delete from post where id = #{id}
+	</delete>
+
+	<delete id="deleteByIds">
+		delete from post where id
+		in
+		<foreach collection="array" item="id" separator="," open="(" close=")">
+		    #{id}
+		</foreach>
+	</delete>
+</mapper>
+
+
