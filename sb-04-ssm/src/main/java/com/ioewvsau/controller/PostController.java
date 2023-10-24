@@ -4,6 +4,7 @@ import com.ioewvsau.common.R;
 import com.ioewvsau.pojo.Post;
 import com.ioewvsau.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,24 +26,28 @@ public class PostController {
     }
 
     @PostMapping
-    int store(@RequestBody Post post) {
-        return postService.save(post);
+    R store(@RequestBody Post post) {
+        int affectedRows = postService.save(post);
+        return R.ok(affectedRows);
     }
 
     @GetMapping("/{id}")
-    Post show(@PathVariable long id) {
-        return postService.getById(id);
+    R show(@PathVariable long id) {
+        Post data = postService.getById(id);
+        return R.ok(data == null ? HttpStatus.NOT_FOUND.value() : HttpStatus.OK.value(), data);
     }
 
     @PutMapping("/{id}")
-    int update(@PathVariable long id, @RequestBody Post post) {
+    R update(@PathVariable long id, @RequestBody Post post) {
         post.setId(id);
-        return postService.update(post);
+        int affectedRows = postService.update(post);
+        return R.ok(affectedRows == 0 ? HttpStatus.NOT_FOUND.value() : HttpStatus.OK.value(), affectedRows);
     }
 
     @DeleteMapping("/{id}")
-    int delete(@PathVariable long id) {
-        return postService.deleteById(id);
+    R delete(@PathVariable long id) {
+        int affectedRows = postService.deleteById(id);
+        return R.ok(affectedRows == 0 ? HttpStatus.NOT_FOUND.value() : HttpStatus.OK.value(), affectedRows);
     }
 
 }

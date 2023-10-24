@@ -61,15 +61,15 @@ class PostControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(post)))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(content().string("1"))
+                .andExpect(MockMvcResultMatchers.jsonPath("data", is(1)))
         ;
     }
 
     @Test
     void show() throws Exception {
         mvc.perform(MockMvcRequestBuilders.get("/posts/5"))
-                .andExpect(MockMvcResultMatchers.jsonPath("title").value("||||||||||||||||||||||||||||||"))
-                .andExpect(MockMvcResultMatchers.jsonPath("slug").value("just-for-wireframes"))
+                .andExpect(MockMvcResultMatchers.jsonPath("data.title").value("||||||||||||||||||||||||||||||"))
+                .andExpect(MockMvcResultMatchers.jsonPath("data.slug").value("just-for-wireframes"))
         ;
     }
 
@@ -85,7 +85,7 @@ class PostControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(post)))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(content().string(is("1")))
+                .andExpect(MockMvcResultMatchers.jsonPath("data", is(1)))
         ;
     }
 
@@ -93,7 +93,7 @@ class PostControllerTest {
     void delete() throws Exception {
         mvc.perform(MockMvcRequestBuilders.delete("/posts/5"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(content().string("1"))
+                .andExpect(MockMvcResultMatchers.jsonPath("data", is(1)))
         ;
     }
 }
