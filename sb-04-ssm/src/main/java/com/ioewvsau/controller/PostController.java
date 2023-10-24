@@ -1,5 +1,6 @@
 package com.ioewvsau.controller;
 
+import com.ioewvsau.common.R;
 import com.ioewvsau.pojo.Post;
 import com.ioewvsau.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,10 +17,11 @@ public class PostController {
     PostService postService;
 
     @GetMapping
-    List<Post> index(@RequestParam(value = "page", defaultValue = "1") int page,
-                     @RequestParam(value = "perPage", defaultValue = "10") int perPage)
+    R index(@RequestParam(value = "page", defaultValue = "1") int page,
+            @RequestParam(value = "perPage", defaultValue = "10") int perPage)
     {
-        return postService.getByPage(perPage, (page - 1) * perPage);
+        List<Post> data = postService.getByPage(perPage, (page - 1) * perPage);
+        return R.ok(data);
     }
 
     @PostMapping

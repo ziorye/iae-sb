@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
@@ -28,8 +29,10 @@ class PostControllerTest {
     void index() throws Exception {
         mvc.perform(MockMvcRequestBuilders.get("/posts"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("*.slug", hasSize(10)))
-                .andExpect(MockMvcResultMatchers.jsonPath("*.slug", hasItems("maven-repository-speedup", "just-for-wireframes")))
+                .andExpect(MockMvcResultMatchers.jsonPath("code", is(HttpStatus.OK.value())))
+                .andExpect(MockMvcResultMatchers.jsonPath("msg", is(HttpStatus.OK.getReasonPhrase())))
+                .andExpect(MockMvcResultMatchers.jsonPath("data", hasSize(10)))
+                .andExpect(MockMvcResultMatchers.jsonPath("data.*.slug", hasItems("maven-repository-speedup", "just-for-wireframes")))
         ;
     }
 
@@ -37,7 +40,7 @@ class PostControllerTest {
     void indexWithPage() throws Exception {
         int perPage = 3;
         mvc.perform(MockMvcRequestBuilders.get("/posts").queryParam("page", "2").queryParam("perPage", perPage+""))
-                .andExpect(MockMvcResultMatchers.jsonPath("*.slug", hasSize(perPage)))
+                .andExpect(MockMvcResultMatchers.jsonPath("data", hasSize(perPage)))
         ;
     }
 
