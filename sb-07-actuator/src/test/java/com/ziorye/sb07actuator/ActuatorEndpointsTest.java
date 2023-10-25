@@ -32,4 +32,14 @@ public class ActuatorEndpointsTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("status").value("UP"))
         ;
     }
+
+    @Test
+    @DisplayName("测试配置了 `management.endpoint.health.show-details=always` 之后的 /actuator/health 页面")
+    void actuatorHealthShowDetail() throws Exception {
+        mvc.perform(MockMvcRequestBuilders.get("/actuator/health"))
+                .andExpect(MockMvcResultMatchers.jsonPath("status").value("UP"))
+                .andExpect(MockMvcResultMatchers.jsonPath("components.diskSpace.status").value("UP"))
+                .andExpect(MockMvcResultMatchers.jsonPath("components.ping.status").value("UP"))
+        ;
+    }
 }
