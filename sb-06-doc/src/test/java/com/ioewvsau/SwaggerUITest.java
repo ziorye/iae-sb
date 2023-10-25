@@ -71,4 +71,26 @@ public class SwaggerUITest {
                 .andExpect(MockMvcResultMatchers.jsonPath("paths['/posts'].get.parameters.*.description", hasItems("当前页码", "每页显示数量")))
         ;
     }
+
+    @Test
+    @DisplayName("""
+            @Schema(description = "文章")
+            @Schema(description = "文章标题")
+            ...
+            @Schema(description = "统一返回结果")
+            @Schema(description = "状态码")
+            @Schema(description = "描述消息")
+            @Schema(description = "具体数据")
+            """)
+    void swaggerUIWithSchemaAnnotation() throws Exception {
+        mvc.perform(MockMvcRequestBuilders.get("/v3/api-docs"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("components.schemas.Post.description", is("文章")))
+                .andExpect(MockMvcResultMatchers.jsonPath("components.schemas.Post.properties.title.description", is("文章标题")))
+                .andExpect(MockMvcResultMatchers.jsonPath("components.schemas.R.description", is("统一返回结果")))
+                .andExpect(MockMvcResultMatchers.jsonPath("components.schemas.R.properties.code.description", is("状态码")))
+                .andExpect(MockMvcResultMatchers.jsonPath("components.schemas.R.properties.msg.description", is("描述消息")))
+                .andExpect(MockMvcResultMatchers.jsonPath("components.schemas.R.properties.data.description", is("具体数据")))
+        ;
+    }
 }

@@ -1,6 +1,7 @@
 package com.ioewvsau.common;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,12 +10,16 @@ import org.springframework.http.HttpStatus;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Schema(description = "统一返回结果")
 public class R {
+    @Schema(description = "状态码")
     private Integer code;
 
+    @Schema(description = "描述消息")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private String msg;
 
+    @Schema(description = "具体数据")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private Object data;
 
