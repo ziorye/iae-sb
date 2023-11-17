@@ -17,6 +17,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/posts")
 @Tag(name = "post-controller", description = "文章管理")
+@CrossOrigin
 public class PostController {
     @Autowired
     PostService postService;
